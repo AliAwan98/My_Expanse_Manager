@@ -116,7 +116,6 @@ class _AddPaymentState extends State<AddPayment> {
                               left: 10,
                               right: 5,
                             ),
-                            isDense: true,
                           ),
                         ),
                       ),

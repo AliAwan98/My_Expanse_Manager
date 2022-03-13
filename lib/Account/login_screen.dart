@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unnecessary_const
 
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:expense_manager/Account/otp_screen.dart';
@@ -73,19 +73,39 @@ class _LoginScreenState extends State<LoginScreen> {
                 right: 10,
                 left: 10,
               ),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Phone Number",
-                  prefix: Padding(
-                    padding: EdgeInsets.all(4),
-                    child: Text(
-                      dialCodeDigits,
-                    ),
-                  ),
-                ),
-                maxLength: 12,
-                keyboardType: TextInputType.number,
+              child:
+                  // TextField(
+                  //   decoration: InputDecoration(
+                  //     hintText: "Phone Number",
+                  //     prefix: Padding(
+                  //       padding: EdgeInsets.all(4),
+                  //       child: Text(
+                  //         dialCodeDigits,
+                  //       ),
+                  //     ),
+                  //   ),
+                  //   maxLength: 12,
+                  //   keyboardType: TextInputType.number,
+                  //   controller: _controller,
+                  // ),
+                  TextField(
+                keyboardType: TextInputType.phone,
                 controller: _controller,
+                maxLength: 11,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(30),
+                      ),
+                    ),
+                    filled: true,
+                    prefixIcon: Icon(
+                      Icons.phone_iphone,
+                      color: Colors.cyan,
+                    ),
+                    hintStyle: TextStyle(color: Colors.grey[800]),
+                    hintText: "Enter Your Phone Number...",
+                    fillColor: Colors.white70),
               ),
             ),
             Container(

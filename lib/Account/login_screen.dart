@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_const
+// ignore_for_file: prefer_const_constructors, unnecessary_const, prefer_const_literals_to_create_immutables
 
-import 'package:country_code_picker/country_code_picker.dart';
+import 'package:country_list_pick/country_list_pick.dart';
 import 'package:expense_manager/Account/otp_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -25,22 +26,25 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: 100,
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 28,
-                right: 28,
-              ),
-              child: Image.asset(
-                "images/login.jpg",
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(
+            //     left: 28,
+            //     right: 28,
+            //   ),
+            //   child: Image.asset(
+            //     "images/login_image.jpeg",
+                
+            //   ),
+            // ),
             Container(
+              width: 280,
               margin: EdgeInsets.only(
                 top: 20,
               ),
               child: Center(
                 child: Text(
-                  "Phone (OTP) Authentication",
+                  "Enter your phone number to get started",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -48,64 +52,82 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 50,
+            Container(
+              width: 300,
+              margin: EdgeInsets.only(
+                top: 10,
+              ),
+              child: Center(
+                child: Text(
+                  "You will receive a verification code.Carrier rates may apply.",
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
             SizedBox(
-              width: 400,
-              height: 60,
-              child: CountryCodePicker(
+              height: 10,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black12),
+              ),
+              width: 180,
+              height: 40,
+              child: CountryListPick(
+                appBar: AppBar(
+                  title: Text('Pick your country'),
+                ),
+                theme: CountryTheme(
+                  isShowFlag: false,
+                  isShowTitle: true,
+                  isShowCode: false,
+                  isDownIcon: true,
+                ),
+                initialSelection: '+92',
                 onChanged: (country) {
                   setState(
                     () {
-                      dialCodeDigits = country.dialCode!;
+                      dialCodeDigits = country!.dialCode!;
                     },
                   );
                 },
-                initialSelection: "Pakistan",
-                showCountryOnly: false,
-                showOnlyCountryWhenClosed: false,
               ),
             ),
             Container(
-              margin: EdgeInsets.only(
-                top: 10,
-                right: 10,
-                left: 10,
-              ),
-              child:
-                  // TextField(
-                  //   decoration: InputDecoration(
-                  //     hintText: "Phone Number",
-                  //     prefix: Padding(
-                  //       padding: EdgeInsets.all(4),
-                  //       child: Text(
-                  //         dialCodeDigits,
-                  //       ),
-                  //     ),
-                  //   ),
-                  //   maxLength: 12,
-                  //   keyboardType: TextInputType.number,
-                  //   controller: _controller,
-                  // ),
-                  TextField(
-                keyboardType: TextInputType.phone,
-                controller: _controller,
-                maxLength: 11,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(
-                        const Radius.circular(30),
+              margin: EdgeInsets.all(10),
+              width: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: Card(
+                      child: Center(
+                        child: Text(
+                          dialCodeDigits,
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
                       ),
                     ),
-                    filled: true,
-                    prefixIcon: Icon(
-                      Icons.phone_iphone,
-                      color: Colors.cyan,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 5),
+                    width: 250,
+                    height: 50,
+                    child: TextField(
+                      controller: _controller,
+                      decoration: InputDecoration(
+                        labelText: "Phone Number",
+                        border: OutlineInputBorder(),
+                        alignLabelWithHint: true,
+                      ),
+                      keyboardType: TextInputType.phone,
                     ),
-                    hintStyle: TextStyle(color: Colors.grey[800]),
-                    hintText: "Enter Your Phone Number...",
-                    fillColor: Colors.white70),
+                  ),
+                ],
               ),
             ),
             Container(

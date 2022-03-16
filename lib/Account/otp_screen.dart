@@ -71,9 +71,9 @@ class _OTPCodeScreenState extends State<OTPCodeScreen> {
           },
         );
       },
-      timeout: Duration(
-        seconds: 60,
-      ),
+      // timeout: Duration(
+      //   seconds: 60,
+      // ),
     );
   }
 

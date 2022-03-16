@@ -1,8 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:expense_manager/Account/login_screen.dart';
 import 'package:expense_manager/Custom%20UIs/custom_group_card.dart';
 import 'package:expense_manager/Models/group_model.dart';
 import 'package:expense_manager/Screens/Contacts_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -135,32 +137,39 @@ class _MyChatsState extends State<MyChats> {
                 ),
           searchBtn
               ? Container()
-              : PopupMenuButton(
-                  onSelected: (value) {},
-                  itemBuilder: (BuildContext context) {
-                    return [
-                      PopupMenuItem(
-                        child: Text("New Group"),
-                        value: "New Group",
+              : PopupMenuButton<int>(
+                  // onSelected: (value) {},
+                  itemBuilder: (context) => [
+                    PopupMenuItem<int>(
+                      value: 0,
+                      child: Text(
+                        "Setting",
                       ),
-                      PopupMenuItem(
-                        child: Text("New broadcast"),
-                        value: "New broadcast",
+                    ),
+                    PopupMenuItem<int>(
+                      value: 1,
+                      child: Text(
+                        "Privacy Policy page",
                       ),
-                      PopupMenuItem(
-                        child: Text("Linked devices"),
-                        value: "Linked devices",
+                    ),
+                    PopupMenuDivider(),
+                    PopupMenuItem<int>(
+                      value: 2,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.logout,
+                            color: Colors.red,
+                          ),
+                          const SizedBox(
+                            width: 7,
+                          ),
+                          Text("Logout")
+                        ],
                       ),
-                      PopupMenuItem(
-                        child: Text("Starred messages"),
-                        value: "Starred messages",
-                      ),
-                      PopupMenuItem(
-                        child: Text("Settings"),
-                        value: "Settings",
-                      ),
-                    ];
-                  },
+                    ),
+                  ],
+                  onSelected: (item) => SelectedItem(context, item),
                 )
         ],
       ),
@@ -204,6 +213,16 @@ class _MyChatsState extends State<MyChats> {
       return permissionStatus[Permission.contacts] ?? PermissionStatus.granted;
     } else {
       return permission;
+    }
+  }
+
+  void SelectedItem(BuildContext context, item) {
+    switch (item) {
+      case 2:
+        FirebaseAuth.instance.signOut();
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (c) => LoginScreen()));
+        break;
     }
   }
 }

@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:expense_manager/Account/login_screen.dart';
+import 'package:expense_manager/Pages/my_chats.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +26,8 @@ class MyApp extends StatelessWidget {
           secondary: const Color(0xFF128C7E),
         ),
       ),
-      home: LoginScreen(),
+      home:
+          FirebaseAuth.instance.currentUser == null ? LoginScreen() : MyChats(),
     );
   }
 }

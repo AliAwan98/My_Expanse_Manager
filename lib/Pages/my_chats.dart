@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
 import 'package:expense_manager/Account/login_screen.dart';
 import 'package:expense_manager/Custom%20UIs/custom_group_card.dart';
@@ -130,9 +130,11 @@ class _MyChatsState extends State<MyChats> {
                     size: 26,
                   ),
                   onPressed: () {
-                    setState(() {
-                      searchBtn = !searchBtn;
-                    });
+                    setState(
+                      () {
+                        searchBtn = !searchBtn;
+                      },
+                    );
                   },
                 ),
           searchBtn
@@ -169,7 +171,10 @@ class _MyChatsState extends State<MyChats> {
                       ),
                     ),
                   ],
-                  onSelected: (item) => SelectedItem(context, item),
+                  onSelected: (item) => SelectedItem(
+                    context,
+                    item,
+                  ),
                 )
         ],
       ),

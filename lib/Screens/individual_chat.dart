@@ -3,7 +3,6 @@
 import 'package:expense_manager/Custom%20UIs/own_msg_card.dart';
 import 'package:expense_manager/Models/group_model.dart';
 import 'package:expense_manager/Models/message_model.dart';
-import 'package:expense_manager/Pages/add_expenses.dart';
 import 'package:expense_manager/Pages/add_payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -21,7 +20,8 @@ class IndividualChat extends StatefulWidget {
 
 class _IndividualChatState extends State<IndividualChat> {
   final ScrollController _scrollController = ScrollController();
-
+  TextEditingController amount = TextEditingController();
+  TextEditingController location = TextEditingController();
   _scrollToBottom() {
     _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
   }
@@ -31,6 +31,7 @@ class _IndividualChatState extends State<IndividualChat> {
     super.initState();
   }
 
+  String? name;
   MessageModel? result;
 
   addPayment(BuildContext context) async {
@@ -38,20 +39,6 @@ class _IndividualChatState extends State<IndividualChat> {
       context,
       MaterialPageRoute(
         builder: (builder) => AddPayment(
-          contacts: widget.groupModel.selectedContacts,
-        ),
-      ),
-    );
-    setState(() {
-      widget.groupModel.myMessages.add(result!);
-    });
-  }
-
-  addExpense(BuildContext context) async {
-    result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (builder) => AddExpenses(
           contacts: widget.groupModel.selectedContacts,
         ),
       ),
@@ -254,9 +241,121 @@ class _IndividualChatState extends State<IndividualChat> {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                widget.groupModel.selectedContacts.isNotEmpty
-                                    ? addExpense(context)
-                                    : null;
+                                setState(() {
+                                  widget.groupModel.selectedContacts.isNotEmpty
+                                      ? {
+                                          amount.clear(),
+                                          location.clear(),
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Location :",
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Container(
+                                                    width: 250,
+                                                    height: 50,
+                                                    child: TextField(
+                                                      decoration:
+                                                          InputDecoration(
+                                                        hintText: "Location",
+                                                        border:
+                                                            OutlineInputBorder(),
+                                                      ),
+                                                      controller: location,
+                                                      autofocus: true,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Text(
+                                                    "Amount :",
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Container(
+                                                    width: 250,
+                                                    height: 50,
+                                                    child: TextField(
+                                                      decoration:
+                                                          InputDecoration(
+                                                        hintText:
+                                                            "Total Amount",
+                                                        border:
+                                                            OutlineInputBorder(),
+                                                      ),
+                                                      controller: amount,keyboardType:
+                                                          TextInputType.phone
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 15,
+                                                  ),
+                                                  Center(
+                                                    child: ElevatedButton(
+                                                      onPressed: () {
+                                                        setState(
+                                                          () {
+                                                            widget.groupModel
+                                                                .myMessages
+                                                                .add(
+                                                              MessageModel(
+                                                                "",
+                                                                location.text,
+                                                                amount.text,
+                                                              ),
+                                                            );
+
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                        );
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Icon(
+                                                            Icons
+                                                                .add_shopping_cart_rounded,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Text(
+                                                            "Add",
+                                                            style: TextStyle(
+                                                              fontSize: 25,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        }
+                                      : null;
+                                });
                               },
                               child: Text(
                                 "Add Expenses",

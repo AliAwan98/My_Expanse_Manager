@@ -91,6 +91,7 @@ class _MyChatsState extends State<MyChats> {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         leading: searchBtn
             ? IconButton(
                 onPressed: () {
@@ -195,6 +196,7 @@ class _MyChatsState extends State<MyChats> {
             isSearching ? filteredGroups.length : GroupModel.myGroups.length,
       ),
       floatingActionButton: FloatingActionButton(
+        elevation: 0.0,
         onPressed: () async {
           final PermissionStatus permissionStatus = await _getPermission();
           if (permissionStatus == PermissionStatus.granted) {

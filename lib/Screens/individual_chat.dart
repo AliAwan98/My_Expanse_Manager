@@ -65,6 +65,7 @@ class _IndividualChatState extends State<IndividualChat> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(60),
             child: AppBar(
+              elevation: 0.0,
               leadingWidth: 70,
               titleSpacing: 0,
               leading: InkWell(
@@ -293,22 +294,24 @@ class _IndividualChatState extends State<IndividualChat> {
                                                     width: 250,
                                                     height: 50,
                                                     child: TextField(
-                                                      decoration:
-                                                          InputDecoration(
-                                                        hintText:
-                                                            "Total Amount",
-                                                        border:
-                                                            OutlineInputBorder(),
-                                                      ),
-                                                      controller: amount,keyboardType:
-                                                          TextInputType.phone
-                                                    ),
+                                                        decoration:
+                                                            InputDecoration(
+                                                          hintText:
+                                                              "Total Amount",
+                                                          border:
+                                                              OutlineInputBorder(),
+                                                        ),
+                                                        controller: amount,
+                                                        keyboardType:
+                                                            TextInputType
+                                                                .phone),
                                                   ),
                                                   SizedBox(
                                                     height: 15,
                                                   ),
                                                   Center(
                                                     child: ElevatedButton(
+                                                      
                                                       onPressed: () {
                                                         setState(
                                                           () {

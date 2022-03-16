@@ -79,6 +79,7 @@ class _ContactsPageState extends State<ContactsPage> {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         leading: IconButton(
           onPressed: () {
             setState(() {
@@ -208,6 +209,7 @@ class _ContactsPageState extends State<ContactsPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        elevation: 0.0,
         child: Icon(
           Icons.arrow_forward,
           size: 30,

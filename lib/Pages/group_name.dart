@@ -26,6 +26,7 @@ class _AddGroupNameState extends State<AddGroupName> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,6 +152,7 @@ class _AddGroupNameState extends State<AddGroupName> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        elevation: 0.0,
         child: Icon(
           Icons.check,
         ),

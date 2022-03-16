@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:expense_manager/Account/login_screen.dart';
 import 'package:expense_manager/Pages/my_chats.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,8 +27,12 @@ class MyApp extends StatelessWidget {
           secondary: const Color(0xFF128C7E),
         ),
       ),
-      home:
-          FirebaseAuth.instance.currentUser == null ? LoginScreen() : MyChats(),
+      home: AnimatedSplashScreen(
+        splash: CircularProgressIndicator(),
+        nextScreen: FirebaseAuth.instance.currentUser == null
+            ? LoginScreen()
+            : MyChats(),
+      ),
     );
   }
 }

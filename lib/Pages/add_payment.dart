@@ -47,6 +47,7 @@ class _AddPaymentState extends State<AddPayment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         title: Text(
           "Add Payments",
         ),
@@ -142,6 +143,7 @@ class _AddPaymentState extends State<AddPayment> {
       floatingActionButton: SizedBox(
         width: 100,
         child: FloatingActionButton(
+          elevation: 0.0,
           isExtended: true,
           onPressed: () {
             setState(() {

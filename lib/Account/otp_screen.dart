@@ -83,6 +83,7 @@ class _OTPCodeScreenState extends State<OTPCodeScreen> {
       key: _scaffoldKey,
       backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0.0,
         title: Text(
           "OTP Verification",
         ),

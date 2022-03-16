@@ -28,7 +28,13 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: AnimatedSplashScreen(
-        splash: CircularProgressIndicator(),
+        splash: Center(
+          child: SizedBox(
+            width: 50,
+            height: 50,
+            child: CircularProgressIndicator(),
+          ),
+        ),
         nextScreen: FirebaseAuth.instance.currentUser == null
             ? LoginScreen()
             : MyChats(),

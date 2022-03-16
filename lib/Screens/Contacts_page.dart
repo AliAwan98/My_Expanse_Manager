@@ -33,8 +33,9 @@ class _ContactsPageState extends State<ContactsPage> {
   }
 
   getAllContacts() async {
-    List<Contact> _contactsAccess =
-        await ContactsService.getContacts(withThumbnails: false);
+    List<Contact> _contactsAccess = await ContactsService.getContacts(
+      withThumbnails: false,
+    );
     _populateContacts(_contactsAccess);
   }
 

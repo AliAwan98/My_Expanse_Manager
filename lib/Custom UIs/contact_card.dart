@@ -50,6 +50,9 @@ class ContactCard extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
+      subtitle: Text(
+        contact.contacts.phones!.elementAt(0).value.toString(),
+      ),
     );
   }
 }

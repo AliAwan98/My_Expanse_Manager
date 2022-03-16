@@ -44,6 +44,7 @@ dependencies:
   intl: ^0.17.0
   country_list_pick: ^1.0.1+5
   intl_phone_field: ^3.0.1
+  country_picker: ^2.0.12
 
 dev_dependencies:
   flutter_test:

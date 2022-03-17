@@ -27,5 +27,5 @@ ThemeData get darkTheme => ThemeData(
       backgroundColor: const Color(0xFF212121),
       accentColor: Colors.white,
       accentIconTheme: IconThemeData(color: Colors.black),
-      dividerColor: Colors.black12,
+      dividerColor: Colors.white70,
     );

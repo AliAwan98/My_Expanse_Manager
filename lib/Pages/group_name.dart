@@ -53,7 +53,7 @@ class _AddGroupNameState extends State<AddGroupName> {
             alignment: Alignment.topLeft,
             child: Container(
               height: 110,
-              color: Colors.white,
+              // color: Colors.white,
               child: Column(
                 children: [
                   Padding(
@@ -128,7 +128,7 @@ class _AddGroupNameState extends State<AddGroupName> {
             ),
             child: Container(
               alignment: Alignment.center,
-              color: Colors.white,
+              // color: Colors.white,
               child: GridView.builder(
                 scrollDirection: Axis.vertical,
 
@@ -149,6 +149,12 @@ class _AddGroupNameState extends State<AddGroupName> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 148,
+            ),
+            child: Divider(),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(

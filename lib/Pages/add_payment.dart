@@ -86,7 +86,7 @@ class _AddPaymentState extends State<AddPayment> {
             Container(
               height: 130,
               width: double.infinity,
-              color: Colors.white,
+              // color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(

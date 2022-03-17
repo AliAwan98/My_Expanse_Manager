@@ -147,7 +147,7 @@ class _ContactsPageState extends State<ContactsPage> {
                   children: [
                     Container(
                       height: 75,
-                      color: Colors.white,
+                      // color: Colors.white,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {

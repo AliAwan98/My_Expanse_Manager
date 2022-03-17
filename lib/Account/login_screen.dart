@@ -18,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +66,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 pickerBuilder: (context, countryListPick) {
                   return Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black12),
+                      border: Border.all(
+                          // color: Colors.black12,
+                          ),
                     ),
                     width: 305,
                     height: 50,
@@ -77,7 +79,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           countryName,
                           style: TextStyle(
                             fontSize: 20,
-                            color: Colors.black54,
                           ),
                         ),
                         SizedBox(
@@ -111,9 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 50,
                   height: 50,
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black26,
-                    ),
+                    border: Border.all(),
                   ),
                   child: Center(
                     child: Text(

@@ -89,10 +89,10 @@ class _ContactsPageState extends State<ContactsPage> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: searchBtn ? Colors.blueGrey : Colors.white,
+            color: searchBtn ? Colors.black : Colors.white,
           ),
         ),
-        backgroundColor: searchBtn ? Colors.white : Color(0xFF128C7E),
+        // backgroundColor: searchBtn ? Colors.white : Color(0xFF128C7E),
         title: !searchBtn
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.start,

@@ -22,7 +22,7 @@ class _OTPCodeScreenState extends State<OTPCodeScreen> {
   final TextEditingController _pinOTPCodeController = TextEditingController();
   final FocusNode _pinOTPCodeFocus = FocusNode();
   String? verificationCode;
-
+  bool start = false;
   @override
   void initState() {
     super.initState();
@@ -71,9 +71,9 @@ class _OTPCodeScreenState extends State<OTPCodeScreen> {
           },
         );
       },
-      // timeout: Duration(
-      //   seconds: 60,
-      // ),
+      timeout: Duration(
+        seconds: 60,
+      ),
     );
   }
 
@@ -120,9 +120,13 @@ class _OTPCodeScreenState extends State<OTPCodeScreen> {
             padding: EdgeInsets.all(40),
             child: Pinput(
               length: 6,
+              autofocus: true,
               focusNode: _pinOTPCodeFocus,
               controller: _pinOTPCodeController,
-              onSubmitted: (pin) async {
+              onCompleted: (pin) async {
+                setState(() {
+                  start = true;
+                });
                 try {
                   await FirebaseAuth.instance
                       .signInWithCredential(
@@ -156,6 +160,13 @@ class _OTPCodeScreenState extends State<OTPCodeScreen> {
                   );
                 }
               },
+            ),
+          ),
+          SizedBox(
+            height: 50,
+            width: 50,
+            child: Center(
+              child: start ? CircularProgressIndicator() : null,
             ),
           ),
         ],

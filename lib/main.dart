@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unused_field
 
+import 'package:expense_manager/Account/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:expense_manager/Pages/my_chats.dart';
@@ -40,8 +41,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
       darkTheme: darkTheme,
-
-     
       home: AnimatedSplashScreen(
         splash: Center(
           child: SizedBox(
@@ -53,8 +52,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         nextScreen:
 
             // FirebaseAuth.instance.currentUser == null
-            // ? LoginScreen()
-            MyChats(),
+            LoginScreen(),
+        // MyChats(),
       ),
     );
   }

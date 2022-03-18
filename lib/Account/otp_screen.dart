@@ -155,10 +155,9 @@ class _OTPCodeScreenState extends State<OTPCodeScreen> {
                 autofocus: true,
                 focusNode: _pinOTPCodeFocus,
                 controller: _pinOTPCodeController,
-                onCompleted: (pin) async {
-                  setState(() {
-                    start = true;
-                  });
+                onSubmitted: (pin) async {
+                  start = true;
+
                   try {
                     await FirebaseAuth.instance
                         .signInWithCredential(

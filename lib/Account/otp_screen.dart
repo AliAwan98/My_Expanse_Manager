@@ -88,88 +88,121 @@ class _OTPCodeScreenState extends State<OTPCodeScreen> {
           "OTP Verification",
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              "images/otp.png",
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(
-              top: 20,
-            ),
-            child: Center(
-              child: GestureDetector(
-                onTap: () {
-                  verifyPhoneNumber();
-                },
-                child: Text(
-                  "Verifying : ${widget.codeDigits}-${widget.phone}",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                "images/otp.png",
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(40),
-            child: Pinput(
-              length: 6,
-              autofocus: true,
-              focusNode: _pinOTPCodeFocus,
-              controller: _pinOTPCodeController,
-              onCompleted: (pin) async {
-                setState(() {
-                  start = true;
-                });
-                try {
-                  await FirebaseAuth.instance
-                      .signInWithCredential(
-                    PhoneAuthProvider.credential(
-                      verificationId: verificationCode!,
-                      smsCode: pin,
-                    ),
-                  )
-                      .then(
-                    (value) {
-                      if (value.user != null) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => MyChats(),
-                          ),
-                        );
-                      }
-                    },
-                  );
-                } catch (e) {
-                  FocusScope.of(context).unfocus();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        "Invalid OTP",
-                      ),
-                      duration: Duration(
-                        seconds: 3,
+            SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 1,
+                      color: Colors.grey,
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 12,
                       ),
                     ),
-                  );
-                }
-              },
+                  ),
+                  Text(
+                    "Enter 6 digit OTP",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 1,
+                      color: Colors.grey,
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 12,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(
-            height: 50,
-            width: 50,
-            child: Center(
-              child: start ? CircularProgressIndicator() : null,
+            // Container(
+            //   child: Center(
+            //     child: GestureDetector(
+            //       onTap: () {
+            //         verifyPhoneNumber();
+            //       },
+            //       child: Text(
+            //         "Enter your 6 digit OTP",
+            //         style: TextStyle(
+            //           fontSize: 16,
+            //           fontWeight: FontWeight.bold,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            Padding(
+              padding: EdgeInsets.all(40),
+              child: Pinput(
+                length: 6,
+                autofocus: true,
+                focusNode: _pinOTPCodeFocus,
+                controller: _pinOTPCodeController,
+                onCompleted: (pin) async {
+                  setState(() {
+                    start = true;
+                  });
+                  try {
+                    await FirebaseAuth.instance
+                        .signInWithCredential(
+                      PhoneAuthProvider.credential(
+                        verificationId: verificationCode!,
+                        smsCode: pin,
+                      ),
+                    )
+                        .then(
+                      (value) {
+                        if (value.user != null) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => MyChats(),
+                            ),
+                          );
+                        }
+                      },
+                    );
+                  } catch (e) {
+                    FocusScope.of(context).unfocus();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          "Invalid OTP",
+                        ),
+                        duration: Duration(
+                          seconds: 3,
+                        ),
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
-          ),
-        ],
+            SizedBox(
+              height: 50,
+              width: 50,
+              child: Center(
+                child: start ? CircularProgressIndicator() : null,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

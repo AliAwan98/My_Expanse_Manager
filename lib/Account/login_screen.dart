@@ -138,6 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       keyboardType: TextInputType.phone,
                       controller: _controller,
+                      autofocus: true,
                     ),
                   ),
                 ),

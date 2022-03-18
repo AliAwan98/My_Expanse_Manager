@@ -23,6 +23,7 @@ class _OTPCodeScreenState extends State<OTPCodeScreen> {
   final FocusNode _pinOTPCodeFocus = FocusNode();
   String? verificationCode;
   bool start = false;
+  String? code;
   @override
   void initState() {
     super.initState();
@@ -118,6 +119,7 @@ class _OTPCodeScreenState extends State<OTPCodeScreen> {
                     "Enter 6 digit OTP",
                     style: TextStyle(
                       fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   Expanded(
@@ -132,77 +134,159 @@ class _OTPCodeScreenState extends State<OTPCodeScreen> {
                 ],
               ),
             ),
-            // Container(
-            //   child: Center(
-            //     child: GestureDetector(
-            //       onTap: () {
-            //         verifyPhoneNumber();
-            //       },
-            //       child: Text(
-            //         "Enter your 6 digit OTP",
-            //         style: TextStyle(
-            //           fontSize: 16,
-            //           fontWeight: FontWeight.bold,
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
             Padding(
               padding: EdgeInsets.all(40),
-              child: Pinput(
-                length: 6,
-                autofocus: true,
-                focusNode: _pinOTPCodeFocus,
-                controller: _pinOTPCodeController,
-                onSubmitted: (pin) async {
-                  start = true;
+              child: otpField(),
+            ),
+            !start
+                ? Container(
+                    margin: EdgeInsets.all(15),
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        start = true;
+                        try {
+                          await FirebaseAuth.instance
+                              .signInWithCredential(
+                            PhoneAuthProvider.credential(
+                              verificationId: verificationCode!,
+                              smsCode: code.toString(),
+                            ),
+                          )
+                              .then(
+                            (value) {
+                              if (value.user != null) {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => MyChats(),
+                                  ),
+                                );
+                              }
+                            },
+                          );
+                        } catch (e) {
+                          FocusScope.of(context).unfocus();
 
-                  try {
-                    await FirebaseAuth.instance
-                        .signInWithCredential(
-                      PhoneAuthProvider.credential(
-                        verificationId: verificationCode!,
-                        smsCode: pin,
-                      ),
-                    )
-                        .then(
-                      (value) {
-                        if (value.user != null) {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => MyChats(),
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                "Invalid OTP",
+                              ),
+                              duration: Duration(
+                                seconds: 3,
+                              ),
                             ),
                           );
                         }
                       },
-                    );
-                  } catch (e) {
-                    FocusScope.of(context).unfocus();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          "Invalid OTP",
-                        ),
-                        duration: Duration(
-                          seconds: 3,
+                      child: Text(
+                        "Verify",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22,
                         ),
                       ),
-                    );
-                  }
-                },
-              ),
-            ),
-            SizedBox(
-              height: 50,
-              width: 50,
-              child: Center(
-                child: start ? CircularProgressIndicator() : null,
-              ),
-            ),
+                    ),
+                  )
+                : SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget otpField() {
+    return Pinput(
+      length: 6,
+      autofocus: true,
+      focusNode: _pinOTPCodeFocus,
+      controller: _pinOTPCodeController,
+      onChanged: (pin) {
+        setState(() {
+          start = false;
+        });
+      },
+      onCompleted: (pin)async {
+        setState(() {
+          code = pin;
+        });
+      start = true;
+        try {
+          await FirebaseAuth.instance
+              .signInWithCredential(
+            PhoneAuthProvider.credential(
+              verificationId: verificationCode!,
+              smsCode: pin,
+            ),
+          )
+              .then(
+            (value) {
+              if (value.user != null) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => MyChats(),
+                  ),
+                );
+              }
+            },
+          );
+        } catch (e) {
+          FocusScope.of(context).unfocus();
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                "Invalid OTP",
+              ),
+              duration: Duration(
+                seconds: 3,
+              ),
+            ),
+          );
+        }
+      },
+      onSubmitted: (pin) async {
+        start = true;
+        try {
+          await FirebaseAuth.instance
+              .signInWithCredential(
+            PhoneAuthProvider.credential(
+              verificationId: verificationCode!,
+              smsCode: pin,
+            ),
+          )
+              .then(
+            (value) {
+              if (value.user != null) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => MyChats(),
+                  ),
+                );
+              }
+            },
+          );
+        } catch (e) {
+          FocusScope.of(context).unfocus();
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                "Invalid OTP",
+              ),
+              duration: Duration(
+                seconds: 3,
+              ),
+            ),
+          );
+        }
+      },
     );
   }
 }
